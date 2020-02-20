@@ -14,7 +14,8 @@ The second flow of traffic to test is:
 2. Kong container (listening on localhost:8000) passes traffic to the VM running a web server on 192.168.239.16 TCP81.
 3. VM should reply with website hosted on port 81 via Kong to web browser.
 
-Configuration:
+==============================================================================
+BASIC Configuration:
 First, on the Windows10 host, add these lines (or similar) to the file C:\Windows\System32\drivers\etc\hosts
 
 127.0.0.1 ubuntu.lumits.com. ubuntu
@@ -68,6 +69,7 @@ Or by browsing to http://ubuntu:8000/ or http://ubuntu81:8000/ on the Windows10 
 
 Other API configuration is viewable https://docs.konghq.com/2.0.x/admin-api/
 
+==============================================================================
 AUTHENTICATION:
 Enable the key-auth plugin on Kong:
 
@@ -88,3 +90,25 @@ curl -i -X POST --url http://localhost:8001/consumers/mark/key-auth --data 'key=
 Access 'ubuntu' service with key:
 
 http://ubuntu:8000/?apikey=pw12345
+
+===========================================================================================
+RATE-LIMITING
+Rate limit the 'ubuntu' service:
+
+curl -i -X POST --url http://localhost:8001/services/ubuntu/plugins --data 'name=rate-limiting' --data 'config.minute=5'
+
+Request the service more than 5 time in 1 minute and you'll see:
+
+message	"API rate limit exceeded"
+
+===========================================================================================
+VIEW PLUGIN CONFIGURATION
+With your browser, for example, you can browse the 'ubuntu' plugins:
+
+http://localhost:8001/services/ubuntu/plugins
+
+or all plugins:
+
+http://localhost:8001/plugins
+
+===========================================================================================
