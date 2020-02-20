@@ -112,3 +112,8 @@ or all plugins:
 http://localhost:8001/plugins
 
 ===========================================================================================
+WHITE/BLACKLIST IPs - can be applied to Service/Route/Consumer
+
+curl -X POST http://localhost:8001/services/ubuntu/plugins --data "name=ip-restriction2" --data "config.whitelist=192.168.239.0/24" OR --data "config.blacklist=0.0.0.0"
+
+message	"Your IP address is not allowed"
