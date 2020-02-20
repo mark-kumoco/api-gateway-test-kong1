@@ -68,3 +68,23 @@ Or by browsing to http://ubuntu:8000/ or http://ubuntu81:8000/ on the Windows10 
 
 Other API configuration is viewable https://docs.konghq.com/2.0.x/admin-api/
 
+AUTHENTICATION:
+Enable the key-auth plugin on Kong:
+
+curl -i -X POST --url http://localhost:8001/plugins --data 'name=key-auth'
+
+Enable the key-auth plugin on 'ubuntu' service:
+
+curl -i -X POST --url http://localhost:8001/services/ubuntu/plugins --data 'name=key-auth'
+
+Create user:
+
+curl -i -X POST --url http://localhost:8001/consumers --data 'username=mark'
+
+Create secret for above user:
+
+curl -i -X POST --url http://localhost:8001/consumers/mark/key-auth --data 'key=pw12345'
+
+Access 'ubuntu' service with key:
+
+http://ubuntu:8000/?apikey=pw12345
