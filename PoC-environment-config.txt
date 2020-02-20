@@ -117,3 +117,12 @@ WHITE/BLACKLIST IPs - can be applied to Service/Route/Consumer
 curl -X POST http://localhost:8001/services/ubuntu/plugins --data "name=ip-restriction2" --data "config.whitelist=192.168.239.0/24" OR --data "config.blacklist=0.0.0.0"
 
 message	"Your IP address is not allowed"
+
+===========================================================================================
+KONGA
+
+docker pull pantsel/konga
+docker run -p 1337:1337 --name konga -e "TOKEN_SECRET=password" pantsel/konga
+
+On docker connect to kong on the docker IP address (e.g 172.17.0.3:8001)
+FNAKFfh89nniZ5g
